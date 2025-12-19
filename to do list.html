@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List with Completed Section</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #e3f2fd;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            width: 220px;
+        }
+        button {
+            padding: 6px 10px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 350px;
+            margin: auto;
+        }
+        li {
+            background: white;
+            margin: 5px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+        }
+        .complete {
+            background: green;
+            color: white;
+            border: none;
+        }
+        .delete {
+            background: red;
+            color: white;
+            border: none;
+        }
+        .completed-task {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<h1>To-Do List</h1>
+
+<input type="text" id="task" placeholder="Enter task">
+<button onclick="addTask()">Add</button>
+
+<h2>Pending Tasks</h2>
+<ul id="pendingList"></ul>
+
+<h2>Completed Tasks</h2>
+<ul id="completedList"></ul>
+
+<script>
+function addTask() {
+    var taskText = document.getElementById("task").value;
+    if (taskText === "") return;
+
+    var li = document.createElement("li");
+    var span = document.createElement("span");
+    span.innerText = taskText;
+
+    var completeBtn = document.createElement("button");
+    completeBtn.innerText = "Complete";
+    completeBtn.className = "complete";
+
+    var deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "Delete";
+    deleteBtn.className = "delete";
+
+    completeBtn.onclick = function() {
+        span.className = "completed-task";
+        completeBtn.remove();
+        document.getElementById("completedList").appendChild(li);
+    };
+
+    deleteBtn.onclick = function() {
+        li.remove();
+    };
+
+    li.appendChild(span);
+    li.appendChild(completeBtn);
+    li.appendChild(deleteBtn);
+
+    document.getElementById("pendingList").appendChild(li);
+    document.getElementById("task").value = "";
+}
+</script>
+
+</body>
+</html>
